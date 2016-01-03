@@ -20,7 +20,7 @@
  * @property string $update_time
  *
  */
-abstract class BaseUser extends SharedActiveRecord {
+abstract class BaseUser extends ShardActiveRecord {
 
 	public static function model($className=__CLASS__) {
 		return parent::model($className);

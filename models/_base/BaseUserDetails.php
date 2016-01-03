@@ -14,7 +14,7 @@
  * @property string $description
  *
  */
-abstract class BaseUserDetails extends SharedActiveRecord {
+abstract class BaseUserDetails extends ShardActiveRecord {
 
 	public static function model($className=__CLASS__) {
 		return parent::model($className);

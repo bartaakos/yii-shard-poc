@@ -1,6 +1,6 @@
 <?php
 
-class SharedActiveRecord extends GxActiveRecord
+class ShardActiveRecord extends GxActiveRecord
 {
     protected $dbComponentId = null;
 

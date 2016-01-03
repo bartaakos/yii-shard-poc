@@ -14,7 +14,7 @@
  * @property string $blob_b64
  *
  */
-abstract class BaseUserBlob extends SharedActiveRecord {
+abstract class BaseUserBlob extends ShardActiveRecord {
 
 	public static function model($className=__CLASS__) {
 		return parent::model($className);

@@ -39,12 +39,12 @@ INSERT INTO `user` (`id`, `name`, `status`, `email`, `password`, `reminder_hash`
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
--- Dumping database structure for lpdbtest_shared_1
-CREATE DATABASE IF NOT EXISTS `lpdbtest_shared_1` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `lpdbtest_shared_1`;
+-- Dumping database structure for lpdbtest_shard_1
+CREATE DATABASE IF NOT EXISTS `lpdbtest_shard_1` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `lpdbtest_shard_1`;
 
 
--- Dumping structure for table lpdbtest_shared_1.user_details
+-- Dumping structure for table lpdbtest_shard_1.user_details
 CREATE TABLE IF NOT EXISTS `user_details` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
@@ -53,19 +53,19 @@ CREATE TABLE IF NOT EXISTS `user_details` (
   UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table lpdbtest_shared_1.user_details: ~1 rows (approximately)
+-- Dumping data for table lpdbtest_shard_1.user_details: ~1 rows (approximately)
 /*!40000 ALTER TABLE `user_details` DISABLE KEYS */;
 INSERT INTO `user_details` (`id`, `user_id`, `description`) VALUES
 	(1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus aliquet libero a dapibus cursus. Maecenas id dignissim mi. Proin porta enim diam, vel placerat dui porttitor et. Fusce fringilla congue leo sit amet rutrum. Sed ut dolor ante. Fusce ac augue varius, egestas diam ut, dapibus nibh. Nam dictum sit amet erat id volutpat. Integer finibus velit consectetur, volutpat diam sed, rhoncus nibh. Morbi accumsan sit amet sem eu imperdiet.');
 /*!40000 ALTER TABLE `user_details` ENABLE KEYS */;
 
 
--- Dumping database structure for lpdbtest_shared_2
-CREATE DATABASE IF NOT EXISTS `lpdbtest_shared_2` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `lpdbtest_shared_2`;
+-- Dumping database structure for lpdbtest_shard_2
+CREATE DATABASE IF NOT EXISTS `lpdbtest_shard_2` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `lpdbtest_shard_2`;
 
 
--- Dumping structure for table lpdbtest_shared_2.user_blob
+-- Dumping structure for table lpdbtest_shard_2.user_blob
 CREATE TABLE IF NOT EXISTS `user_blob` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `user_blob` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table lpdbtest_shared_2.user_blob: ~2 rows (approximately)
+-- Dumping data for table lpdbtest_shard_2.user_blob: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user_blob` DISABLE KEYS */;
 INSERT INTO `user_blob` (`id`, `user_id`, `blob_b64`) VALUES
 	(1, 1, 'YmxvYjE='),

@@ -24,10 +24,10 @@ All db instance ids (not database names) used throughout the application:
 class DbComponents
 {
     const MainDb = 'db';
-    const SharedDb1 = 'lpdbtest_shared_1';
-    const SharedDb2 = 'lpdbtest_shared_2';
+    const ShardDb1 = 'lpdbtest_shard_1';
+    const ShardDb2 = 'lpdbtest_shard_2';
     
-    static $componentIds = array(self:: MainDb, self::SharedDb1, self::SharedDb2);
+    static $componentIds = array(self:: MainDb, self::ShardDb1, self::ShardDb2);
 }
 ```
 
@@ -47,9 +47,9 @@ Configure them in the static <code>custom.php</code>:
             'enableProfiling' => true,
             'enableParamLogging' => true,
         ),
-        DbComponents::SharedDb1 => array(
+        DbComponents::ShardDb1 => array(
             'class' => 'CDbConnection',
-            'connectionString' => 'mysql:host=localhost;dbname=lpdbtest_shared_1',
+            'connectionString' => 'mysql:host=localhost;dbname=lpdbtest_shard_1',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '',
@@ -57,9 +57,9 @@ Configure them in the static <code>custom.php</code>:
             'enableProfiling' => true,
             'enableParamLogging' => true,
         ),
-        DbComponents::SharedDb2 => array(
+        DbComponents::ShardDb2 => array(
             'class' => 'CDbConnection',
-            'connectionString' => 'mysql:host=localhost;dbname=lpdbtest_shared_2',
+            'connectionString' => 'mysql:host=localhost;dbname=lpdbtest_shard_2',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '',
@@ -89,7 +89,7 @@ You might have only 1 db (no sharding):
 
 ### DbManager
 
-Returns the requested db connection if it's available or the main db connection otherwise. If you haven't specified the shared db-s in the <code>custom.php</code> then it won't find them so you get the main db connection where you keep all your data in this case.
+Returns the requested db connection if it's available or the main db connection otherwise. If you haven't specified the shard db-s in the <code>custom.php</code> then it won't find them so you get the main db connection where you keep all your data in this case.
 
 ```php
 class DbManager
@@ -118,12 +118,12 @@ class DbManager
 }
 ```
 
-### SharedActiveRecord
+### ShardActiveRecord
 
 Lets you change the db under an AR Model
 
 ```php
-class SharedActiveRecord extends GxActiveRecord
+class ShardActiveRecord extends GxActiveRecord
 {
     protected $dbComponentId = null;
 
@@ -138,23 +138,23 @@ class SharedActiveRecord extends GxActiveRecord
 }
 ```
 
-e.g. the UserDetails model's db should be on the SharedDb1 (lpdbtest_shared_1) shard:
+e.g. the UserDetails model's db should be on the ShardDb1 (lpdbtest_shard_1) shard:
 
 ```php
-abstract class BaseUserDetails extends SharedActiveRecord { /* ... */ }
+abstract class BaseUserDetails extends ShardActiveRecord { /* ... */ }
 ```
 
 ```php
 class UserDetails extends BaseUserDetails
 {
-	protected $dbComponentId = DbComponents::SharedDb1;
+	protected $dbComponentId = DbComponents::ShardDb1;
   // ...
 }
 ```
 
 ### Usage
 
-There are certain functionalities in the application when you want to reach data that is possibly located in a shared database (e.g. getting user data with blobs - *for the sake of simplicity they are base64 encoded strings*)
+There are certain functionalities in the application when you want to reach data that is possibly located in a shard database (e.g. getting user data with blobs - *for the sake of simplicity they are base64 encoded strings*)
 
 **User::toDto()**
 
@@ -215,7 +215,7 @@ Using the <code>DbManager</code> you can even get information from a certain sha
 
 ```php
         /** @var CDbConnection $db */
-        $db = DbManager::getDb(DbComponents::SharedDb2);
+        $db = DbManager::getDb(DbComponents::ShardDb2);
         /** @var CDbCommand $cmd */
         $cmd = $db->createCommand("SELECT COUNT(id) FROM user_blob WHERE user_id = :user_id");
 
