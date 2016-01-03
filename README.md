@@ -14,6 +14,8 @@ The files listed above are ignored and you should handle them as static content.
 
 ## Sharding
 
+![Image of possible databases](https://github.com/bartaakos/lpdbpoc/blob/master/data/lpdbpoc.png)
+
 ### Configuration 
 
 All db instance ids (not database names) used throughout the application:
@@ -149,3 +151,60 @@ class UserDetails extends BaseUserDetails
   // ...
 }
 ```
+
+### Usage
+
+There are certain functionalities in the application when you want to reach data that is possibly located in a shared database (e.g. getting user data with blobs - *for the sake of simplicity they are base64 encoded strings*)
+
+**User::toDto()**
+
+```php
+    /**
+     * @param User $model
+     * @return UserDto
+     */
+    public static function toDto(User $model) {
+        /** @var UserDetails $details */
+        $details = $model->getUserDetails();
+        /** @var UserBlob[] $blobs */
+        $blobs = $model->getUserBlobs();
+
+        /** @var UserDto $userDto */
+        $userDto = new UserDto($model->getAttributes());
+        $userDto->description = $details->description;
+        $userDto->blobs = array();
+        foreach ($blobs as $blob) {
+            $userDto->blobs[] = $blob->blob_b64;
+        }
+
+        return $userDto;
+    }
+
+    /**
+     * @return UserDetails
+     */
+    private function getUserDetails()
+    {
+        return UserDetails::model()->findByAttributes(array('user_id' => $this->id));
+    }
+
+    /**
+     * @return UserBlob[]
+     */
+    private function getUserBlobs()
+    {
+        return UserBlob::model()->findAllByAttributes(array('user_id' => $this->id));
+    }
+```
+
+Looking at the getter at the bottom you may say that there would be a quite convenient way to handle these kinds of connections among AR models (relations) but they cannot be used bacause they would do multi db joins:
+```php
+    public function relations()
+    {
+        return array_merge(array(
+            'details' => array(self::HAS_ONE, 'UserDetails', 'user_id'),
+            'blobs' => array(self::HAS_MANY, 'UserBlob', 'user_id'),
+        ), parent::relations());
+    }
+```
+This means that you **should NOT use relations** for reaching data that might be in another db.
