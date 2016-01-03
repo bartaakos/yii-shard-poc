@@ -1,4 +1,4 @@
-# LP Db PoC
+# Yii DB Sharding PoC
 
 ## Static files
 
