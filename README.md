@@ -208,3 +208,16 @@ Looking at the getters at the bottom you may say that there would be a better wa
     }
 ```
 This means that you **should NOT use relations** for reaching data that might be in another db.
+
+**Writing queries**
+
+Using the <code>DbManager</code> you can even get information from a certain shard regardless of where you are in the current context:
+
+```php
+        /** @var CDbConnection $db */
+        $db = DbManager::getDb(DbComponents::SharedDb2);
+        /** @var CDbCommand $cmd */
+        $cmd = $db->createCommand("SELECT COUNT(id) FROM user_blob WHERE user_id = :user_id");
+
+        $count = $cmd->queryScalar(array(':user_id' => 1));
+```
