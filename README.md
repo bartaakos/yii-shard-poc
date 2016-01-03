@@ -81,6 +81,3 @@ ndeploy.basedir=/home/ndeploy/current
 
 Note that I removed the <code>yiic migration</code> after <code>composer update/install</code> because we do that with nDeploy as you can see. If you need to get that back simply uncomment those lines in the params in <code>console/console.php</code> and set <code>application.framework.extra.migrate</code> to <code>false</code> in <code>build.properties</code>.
 
-## Credits
-
-[Netpositive](http://netpositive.hu)
