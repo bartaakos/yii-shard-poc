@@ -197,7 +197,7 @@ There are certain functionalities in the application when you want to reach data
     }
 ```
 
-Looking at the getter at the bottom you may say that there would be a quite convenient way to handle these kinds of connections among AR models (relations) but they cannot be used bacause they would do multi db joins:
+Looking at the getters at the bottom you may say that there would be a better way to handle these kinds of connections among AR models (relations) but they cannot be used bacause they would do multi db joins:
 ```php
     public function relations()
     {
