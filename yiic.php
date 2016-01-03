@@ -1,4 +1,6 @@
 <?php
+require_once(__DIR__.'/config/db_components.php');
+
 require_once(__DIR__.'/vendor/autoload.php');
 
 // change the following paths if necessary

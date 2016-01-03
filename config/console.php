@@ -39,8 +39,7 @@ return CMap::mergeArray(
                 'dryRun' => false
             ),
         ),
-        'params' => CMap::mergeArray(array(),
-            require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'params.php')),
+        'params' => require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'params.php'),
     ),
     require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'custom.php')
 );
