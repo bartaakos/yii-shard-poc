@@ -14,7 +14,7 @@ The files listed above are ignored and you should handle them as static content.
 
 ## Sharding
 
-![Image of possible databases](https://github.com/bartaakos/lpdbpoc/blob/master/data/lpdbpoc.png)
+![Image of possible databases](https://github.com/bartaakos/yii-shard-poc/blob/master/data/lpdbpoc.png)
 
 ### Configuration 
 
