@@ -2,6 +2,10 @@
 
 class DbManager
 {
+    /**
+     * @param string $id Db instance id
+     * @return CDbConnection
+     */
     public static function getDb($id)
     {
         if(self::isComponentAvailable($id)) {
