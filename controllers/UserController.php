@@ -24,7 +24,11 @@ class UserController extends ApiController
     public function actionView($id)
     {
         /** @var User $model */
-        $model = $this->loadModel($id, 'User');
+        $model = User::model()->findShardedDataByUserId($id, 'id');
+
+        if(!$model) {
+            throw new CHttpException(404);
+        }
 
         $this->_sendResponse(User::toDto($model));
     }

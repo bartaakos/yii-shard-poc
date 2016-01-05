@@ -63,7 +63,7 @@ class User extends BaseUser
 
         /** @var UserDto $userDto */
         $userDto = new UserDto($model->getAttributes());
-        $userDto->description = $details->description;
+        $userDto->description = $details ? $details->description : '';
         $userDto->blobs = array();
         foreach ($blobs as $blob) {
             $userDto->blobs[] = $blob->blob_b64;
@@ -77,7 +77,7 @@ class User extends BaseUser
      */
     private function getUserDetails()
     {
-        return UserDetails::model()->findByAttributes(array('user_id' => $this->id));
+        return UserDetails::model()->findShardedDataByUserId($this->id, 'user_id');
     }
 
     /**
